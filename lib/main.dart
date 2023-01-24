@@ -1,115 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../screens/splash_screen.dart';
+import '../screens/signin_screen.dart';
+import '../screens/home_screen.dart';
+import '../screens/logo_management_screen.dart';
+import '../screens/manage_drivers_screen.dart';
+import '../screens/manage_customers_screen.dart';
+import '../screens/manage_bookings_screen.dart';
+import '../screens/manage_later_bookings_screen.dart';
+import '../screens/vehicle_screen.dart';
+import '../screens/price_per_km_setup_screen.dart';
+import '../screens/wait_and_cancellation_screen.dart';
+import '../screens/push_notification_screen.dart';
+import '../screens/live_tracking_screen.dart';
+import '../screens/app_configuration_screen.dart';
+import '../screens/app_slider_screen.dart';
+import '../screens/admin_booking_screen.dart';
+import '../screens/review_management_screen.dart';
+import '../screens/promo_code_screen.dart';
+import '../screens/create_pass_screen.dart';
+import '../screens/static_pages_screen.dart';
+import '../screens/localization_screen.dart';
+import '../screens/withdraw_request_screen.dart';
+
+import '../utils/colors.dart' as color;
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  bool? isLogin = false;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    MaterialColor myColor = MaterialColor(0xFF631795, <int, Color>{
+      50: color.kPurple,
+      100: color.kPurple,
+      200: color.kPurple,
+      300: color.kPurple,
+      400: color.kPurple,
+      500: color.kPurple,
+      600: color.kPurple,
+      700: color.kPurple,
+      800: color.kPurple,
+      900: color.kPurple,
+    });
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: myColor,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+            bodyText1: TextStyle(
+                fontFamily: 'OpenSans', fontSize: 16, color: color.kBlack),
+            bodyText2: TextStyle(
+                fontFamily: 'OpenSans', fontSize: 16, color: color.kWhite)),
+        appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: color.kWhite)),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      home: HomeScreen(),
+      routes: {
+        '/signin_screen': (ctx) => const SigninScreen(),
+        '/home_screen': (ctx) => const HomeScreen(),
+        '/logo_management_screen': (ctx) => const LogoManagementScreen(),
+        '/manage_drivers_screen': (ctx) => const ManageDriversScreen(),
+        '/manage_customers_screen': (ctx) => const ManageCustomersScreen(),
+        '/manage_bookings_screen': (ctx) => const ManageBookingsScreen(),
+        '/manage_later_bookings_screen': (ctx) =>
+            const ManageLaterBookingsScreen(),
+        '/vehicle_screen': (ctx) => const VehicleScreen(),
+        '/price_per_km_setup_screen': (ctx) => const PricePerKMSetupScreen(),
+        '/wait_and_cancellation_screen': (ctx) =>
+            const WaitAndCancellationScreen(),
+        '/push_notification_screen': (ctx) => const PushNotificationScreen(),
+        '/live_tracking_screen': (ctx) => const LiveTrackingScreen(),
+        '/app_configuration_screen': (ctx) => const AppConfigurationScreen(),
+        '/app_slider_screen': (ctx) => const AppSliderScreen(),
+        '/admin_booking_screen': (ctx) => const AdminBookingScreen(),
+        '/review_management_screen': (ctx) => const ReviewManagementScreen(),
+        '/promo_code_screen': (ctx) => const PromoCodeScreen(),
+        '/create_pass_screen': (ctx) => const CreatePassScreen(),
+        '/static_pages_screen': (ctx) => const StaticPagesScreen(),
+        '/localization_screen': (ctx) => const LocalizationScreen(),
+        '/withdraw_request_screen': (ctx) => const WithdrawRequestScreen(),
+      },
     );
   }
 }
